@@ -13,13 +13,13 @@
 export default {
 	name: "TypeWriter",
 	props: {
-		order: {
-			type: String,
-			default: "normal"
-		},
-		oneTime: {
+		rollback: {
 			type: Boolean,
-			default: true
+			default: false
+		},
+		loop: {
+			type: Boolean,
+			default: false
 		},
 		delay: {
 			type: Number,
@@ -27,7 +27,7 @@ export default {
 		},
 		interval: {
 			type: Number,
-			default: 75
+			default: 100
 		},
 		cursor: {
 			type: [Boolean, String],
@@ -35,13 +35,14 @@ export default {
 		},
 		align: {
 			type: String,
-			default: "left"
+			default: "left",
+			validator: function(val) {
+				return ["left", "center", "right"].indexOf(val) !== -1;
+			}
 		}
 	},
 	data() {
-		return {
-			ifCycle: this.oneTime
-		};
+		return {};
 	},
 	created() {},
 	mounted() {
@@ -50,30 +51,71 @@ export default {
 	computed: {},
 	methods: {
 		typewrite() {
-			if (this.delay === 0) this.typeNoDelay(this.interval, this.cursor);
-			else
-				setTimeout(
-					this.typeNoDelay(this.interval, this.cursor),
-					this.delay
-				);
-		},
-		typeNoDelay(interval, cursor) {
 			let html = document.querySelector(".v-typewriter");
 			let content = html.innerHTML;
 			html.innerHTML = "";
+			let that = this;
+			setTimeout(function() {
+				html.innerHTML = content;
+				that.typeNoDelay(content, that.interval, that.cursor);
+			}, that.delay);
+		},
+		typeNoDelay(content, interval, cursor) {
+			console.log(content.length);
+			if (!cursor) cursor = " ";
+			let html = document.querySelector(".v-typewriter");
+			let [loop, rollback] = [this.loop, this.rollback];
+			html.innerHTML = "";
 			let progress = 0;
+			let rollSign = false;
 			let timer = setInterval(function() {
-				let current = content.substr(progress, 1);
-				if (current === "<") {
-					progress = content.indexOf(">", progress) + 1;
-				} else {
-					progress++;
+				if (progress === 0 && rollSign) {
+					rollSign = false;
+
+					if (loop) {
+						setTimeout(() => {
+							progress = 0;
+							html.innerHTML = "";
+						}, interval * 2);
+					} else clearInterval(timer);
 				}
-				html.innerHTML =
-					content.substring(0, progress) +
-					(progress & 1 ? cursor : "");
+				let current = content.substr(progress, 1);
+				if (rollSign && rollback) {
+					if (current === ">") {
+						progress =
+							content.lastIndexOf("<", progress) === 0
+								? 0
+								: content.lastIndexOf("<", progress) - 1;
+					} else {
+						progress--;
+					}
+					html.innerHTML =
+						content.substring(0, progress) +
+						(progress & 1 ? cursor : "");
+				} else {
+					if (current === "<") {
+						progress = content.indexOf(">", progress) + 1;
+					} else {
+						progress++;
+					}
+					html.innerHTML =
+						content.substring(0, progress) +
+						(progress & 1 ? cursor : "");
+				}
+				console.log(progress);
 				if (progress >= content.length) {
-					clearInterval(timer);
+					if (rollback)
+						setTimeout(() => {
+							rollSign = true;
+						}, interval * 2);
+					else {
+						if (loop) {
+							setTimeout(() => {
+								progress = 0;
+								html.innerHTML = "";
+							}, interval * 2);
+						} else clearInterval(timer);
+					}
 				}
 			}, interval);
 		}

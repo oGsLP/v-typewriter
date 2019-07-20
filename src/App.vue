@@ -1,6 +1,13 @@
 <template>
 	<div id="app">
-		<type-writer :interval="50">
+		<type-writer
+			:interval="50"
+			:delay="100"
+			cursor="_"
+			align="left"
+			rollback
+			loop
+		>
 			<span class="comments">/**</span><br />
 			<span class="comments">*2018—04-23,</span><br />
 			<span class="comments">*2019-05-20.</span><br />
@@ -9,11 +16,6 @@
 			><span class="highlight">Xiao Yunfan</span><br />
 			<span class="keyword">const</span><span> girl =</span
 			><span class="highlight">Sun Yu</span><br />
-			<br />
-
-			<span>They tried to knew each other gradually,</span><br />
-			<span>And fell in love quickly.</span><br />
-			<br />
 		</type-writer>
 	</div>
 </template>
@@ -37,6 +39,8 @@ export default {
 	text-align: center;
 	color: #2c3e50;
 	margin-top: 60px;
+	font-weight: bold;
+	font-size: 32px;
 }
 .comments {
 	color: green;
