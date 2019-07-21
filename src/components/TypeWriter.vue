@@ -1,5 +1,6 @@
 <template>
 	<div
+		:class="self"
 		class="v-typewriter"
 		:style="{
 			textAlign: align
@@ -13,6 +14,10 @@
 export default {
 	name: "TypeWriter",
 	props: {
+		identifier: {
+			type: String,
+			required: true
+		},
 		rollback: {
 			type: Boolean,
 			default: false
@@ -42,16 +47,19 @@ export default {
 		}
 	},
 	data() {
-		return {};
+		return {
+			self: this.identifier
+		};
 	},
 	created() {},
 	mounted() {
 		this.typewrite();
+		console.log(this.self);
 	},
 	computed: {},
 	methods: {
 		typewrite() {
-			let html = document.querySelector(".v-typewriter");
+			let html = document.querySelector(`.${this.self}`);
 			let content = html.innerHTML;
 			html.innerHTML = "";
 			let that = this;
@@ -63,7 +71,7 @@ export default {
 		typeNoDelay(content, interval, cursor) {
 			console.log(content.length);
 			if (!cursor) cursor = " ";
-			let html = document.querySelector(".v-typewriter");
+			let html = document.querySelector(`.${this.self}`);
 			let [loop, rollback] = [this.loop, this.rollback];
 			html.innerHTML = "";
 			let progress = 0;
@@ -80,6 +88,9 @@ export default {
 					} else clearInterval(timer);
 				}
 				let current = content.substr(progress, 1);
+				html.innerHTML =
+					content.substring(0, progress) +
+					(progress & 1 ? cursor : "");
 				if (rollSign && rollback) {
 					if (current === ">") {
 						progress =
@@ -89,18 +100,12 @@ export default {
 					} else {
 						progress--;
 					}
-					html.innerHTML =
-						content.substring(0, progress) +
-						(progress & 1 ? cursor : "");
 				} else {
 					if (current === "<") {
 						progress = content.indexOf(">", progress) + 1;
 					} else {
 						progress++;
 					}
-					html.innerHTML =
-						content.substring(0, progress) +
-						(progress & 1 ? cursor : "");
 				}
 				console.log(progress);
 				if (progress >= content.length) {
@@ -123,11 +128,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-typewriter {
-	margin: 5px;
-	width: 100%;
-	height: auto;
-	text-align: left;
-}
-</style>
+<style scoped></style>

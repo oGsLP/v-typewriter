@@ -1,6 +1,6 @@
 {
   "name": "v-typewriter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
