@@ -1,6 +1,5 @@
 <template>
 	<div
-		:class="self"
 		class="v-typewriter"
 		:style="{
 			textAlign: align
@@ -14,10 +13,6 @@
 export default {
 	name: "TypeWriter",
 	props: {
-		identifier: {
-			type: String,
-			required: true
-		},
 		rollback: {
 			type: Boolean,
 			default: false
@@ -47,33 +42,30 @@ export default {
 		}
 	},
 	data() {
-		return {
-			self: this.identifier
-		};
+		return {};
 	},
 	created() {},
 	mounted() {
 		this.typewrite();
-		console.log(this.self);
 	},
 	computed: {},
 	methods: {
 		typewrite() {
-			let html = document.querySelector(`.${this.self}`);
-			let content = html.innerHTML;
-			html.innerHTML = "";
+			let el = this.$el;
+
+			let content = el.innerHTML;
+			el.innerHTML = "";
 			let that = this;
 			setTimeout(function() {
-				html.innerHTML = content;
+				el.innerHTML = content;
 				that.typeNoDelay(content, that.interval, that.cursor);
 			}, that.delay);
 		},
 		typeNoDelay(content, interval, cursor) {
-			console.log(content.length);
 			if (!cursor) cursor = " ";
-			let html = document.querySelector(`.${this.self}`);
+			let el = this.$el;
 			let [loop, rollback] = [this.loop, this.rollback];
-			html.innerHTML = "";
+			el.innerHTML = "";
 			let progress = 0;
 			let rollSign = false;
 			let timer = setInterval(function() {
@@ -83,12 +75,12 @@ export default {
 					if (loop) {
 						setTimeout(() => {
 							progress = 0;
-							html.innerHTML = "";
+							el.innerHTML = "";
 						}, interval * 2);
 					} else clearInterval(timer);
 				}
 				let current = content.substr(progress, 1);
-				html.innerHTML =
+				el.innerHTML =
 					content.substring(0, progress) +
 					(progress & 1 ? cursor : "");
 				if (rollSign && rollback) {
@@ -107,7 +99,6 @@ export default {
 						progress++;
 					}
 				}
-				console.log(progress);
 				if (progress >= content.length) {
 					if (rollback)
 						setTimeout(() => {
@@ -117,7 +108,7 @@ export default {
 						if (loop) {
 							setTimeout(() => {
 								progress = 0;
-								html.innerHTML = "";
+								el.innerHTML = "";
 							}, interval * 2);
 						} else clearInterval(timer);
 					}

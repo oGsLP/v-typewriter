@@ -2,7 +2,6 @@
 	<div id="app-for-example">
 		<div id="tw-title">
 			<type-writer
-				identifier="tw-0"
 				:interval="250"
 				:delay="1000"
 				align="center"
@@ -16,31 +15,19 @@
 			<h1>to do..</h1>
 		</div>
 
-		<type-writer class="tw-part" identifier="tw-1">
+		<type-writer class="tw-part">
 			<span class="comments">// Simple Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
 			><span class="highlight"> Type!</span>
 		</type-writer>
-		<type-writer
-			class="tw-part"
-			align="center"
-			identifier="tw-2"
-			cursor="$"
-			rollback
-		>
+		<type-writer class="tw-part" align="center" cursor="$" rollback>
 			<span class="comments">// Rollback Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
 			><span class="highlight"> Rollback!</span>
 		</type-writer>
-		<type-writer
-			class="tw-part"
-			align="center"
-			identifier="tw-3"
-			cursor="~"
-			loop
-		>
+		<type-writer class="tw-part" align="center" cursor="~" loop>
 			<span class="comments">// Loop Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
@@ -48,7 +35,6 @@
 		</type-writer>
 		<type-writer
 			class="tw-part"
-			identifier="tw-4"
 			:interval="60"
 			:delay="5000"
 			cursor="_"
@@ -72,7 +58,7 @@
 </template>
 
 <script>
-import TypeWriter from "./components/TypeWriter.vue";
+import TypeWriter from "./components/Typewriter.vue";
 
 export default {
 	name: "app",

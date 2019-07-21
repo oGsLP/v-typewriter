@@ -1,5 +1,5 @@
 //入口
-import Typewriter from "./TypeWriter.vue";
+import Typewriter from "./Typewriter.vue";
 
 export default {
     install: function(Vue) {
