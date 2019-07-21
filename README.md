@@ -1,4 +1,4 @@
-# v-typewriter
+# V-typewriter
 
 ## Project setup
 ```

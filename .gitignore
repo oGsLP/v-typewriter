@@ -1,5 +1,8 @@
 .DS_Store
 node_modules
+test/coverage
+deploy
+
 
 # local env files
 .env.local
