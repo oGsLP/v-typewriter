@@ -10,19 +10,19 @@
 ![GitHub last commit][last commit url]
 
 
-> A Vue UI components lib
+> A Vue component for typewriting dom
 
 [https://v-typewriter.netlify.com](https://v-typewriter.netlify.com)
 
 ```bash
-npm install v-typewriter
+npm install --save v-typewriter
 ```
 
 ## Import
 
 ```javascript
 
-// 用法一 main.js 入口
+// 1. main.js Entry; use as a plugin
 
 import Vue from "vue";
 import VTypewriter from "v-typewriter";
@@ -33,24 +33,24 @@ Vue.use(VTypewriter);
 
 ```vue
 
-<!--用法二 .vue中引入-->
-<scripts>
-import VTypewriter from "v-typewriter";]
+<!--2. .vue import-->
+<script>
+import VTypewriter from "v-typewriter";
 
 export default {
 	name: "app",
 	components: {
-		TypeWriter
+		VTypewriter
 	}
 };
-</scripts>
+</script>
 
 ```
 
 ## Usage
 ```vue
 <v-typewriter :interval="100" loop rollback>
-	<!--insert any dom to be typewriter-->
+	<!--insert any dom to be typewrote-->
 	<h1>v-typewriter</h1>
 	<span>We can type!</span>
 </v-typewriter>
