@@ -1,5 +1,12 @@
 {
 	"name": "v-typewriter",
+	"private": false,
+	"author": "oGsLP",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/oGsLP/v-typewriter.git"
+	},
+	"homepage": "https://v-typewriter.netlify.com",
 	"version": "0.3.0",
 	"scripts": {
 		"serve": "vue-cli-service serve",
