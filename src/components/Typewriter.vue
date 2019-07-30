@@ -41,14 +41,10 @@ export default {
 			}
 		}
 	},
-	data() {
-		return {};
-	},
 	created() {},
 	mounted() {
 		this.typewrite();
 	},
-	computed: {},
 	methods: {
 		typewrite() {
 			let el = this.$el;
@@ -69,6 +65,7 @@ export default {
 			let progress = 0;
 			let rollSign = false;
 			let timer = setInterval(function() {
+				// 返回到innerHtml开头
 				if (progress === 0 && rollSign) {
 					rollSign = false;
 
@@ -76,7 +73,7 @@ export default {
 						setTimeout(() => {
 							progress = 0;
 							el.innerHTML = "";
-						}, interval * 2);
+						}, interval);
 					} else clearInterval(timer);
 				}
 				let current = content.substr(progress, 1);
@@ -89,17 +86,26 @@ export default {
 							content.lastIndexOf("<", progress) === 0
 								? 0
 								: content.lastIndexOf("<", progress) - 1;
+						while (content.substr(progress, 1) === ">")
+							progress =
+								content.lastIndexOf("<", progress) === 0
+									? 0
+									: content.lastIndexOf("<", progress) - 1;
 					} else {
 						progress--;
 					}
 				} else {
 					if (current === "<") {
 						progress = content.indexOf(">", progress) + 1;
+						while (content.substr(progress, 1) === "<")
+							progress = content.indexOf(">", progress) + 1;
 					} else {
 						progress++;
 					}
 				}
+				// 到达innerHtml结尾
 				if (progress >= content.length) {
+					el.innerHTML = content.substring(0, progress);
 					if (rollback)
 						setTimeout(() => {
 							rollSign = true;
@@ -109,7 +115,7 @@ export default {
 							setTimeout(() => {
 								progress = 0;
 								el.innerHTML = "";
-							}, interval * 2);
+							}, interval);
 						} else clearInterval(timer);
 					}
 				}
