@@ -7,7 +7,7 @@
 		"url": "git+https://github.com/oGsLP/v-typewriter.git"
 	},
 	"homepage": "https://v-typewriter.netlify.com",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"lint": "vue-cli-service lint",
