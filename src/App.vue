@@ -1,13 +1,13 @@
 <template>
 	<div id="app-for-example">
 		<div id="tw-title">
-			<type-writer
+			<v-typewriter
 				:interval="250"
 				:delay="1000"
 				align="center"
 				loop
 				cursor="|"
-				><h1>V-typewriter</h1></type-writer
+				><h1>V-typewriter</h1></v-typewriter
 			>
 		</div>
 		<div id="tw-author">
@@ -15,25 +15,25 @@
 			<h1>to do..</h1>
 		</div>
 
-		<type-writer class="tw-part">
+		<v-typewriter class="tw-part">
 			<span class="comments">// Simple Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
 			><span class="highlight"> Type!</span>
-		</type-writer>
-		<type-writer class="tw-part" align="center" cursor="$" rollback>
+		</v-typewriter>
+		<v-typewriter class="tw-part" align="center" cursor="$" rollback>
 			<span class="comments">// Rollback Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
 			><span class="highlight"> Rollback!</span>
-		</type-writer>
-		<type-writer class="tw-part" align="center" cursor="~" loop>
+		</v-typewriter>
+		<v-typewriter class="tw-part" align="center" cursor="~" loop>
 			<span class="comments">// Loop Example</span><br /><br />
 			<span class="keyword">I'm v-typewriter</span><br />
 			<span class="keyword">Type</span><span> Type</span
 			><span class="highlight"> Loop!</span>
-		</type-writer>
-		<type-writer
+		</v-typewriter>
+		<v-typewriter
 			class="tw-part"
 			:interval="60"
 			:delay="5000"
@@ -49,7 +49,7 @@
 			<br />
 			<span class="keyword">Loopppp...</span><span> Start</span><br />
 			<span class="keyword">Begin</span><span> Rollbackkkk...</span>
-		</type-writer>
+		</v-typewriter>
 		<div id="tw-api">
 			<h1>api ..</h1>
 			<h1>to do..</h1>
@@ -58,13 +58,8 @@
 </template>
 
 <script>
-import TypeWriter from "./components/Typewriter.vue";
-
 export default {
-	name: "app",
-	components: {
-		TypeWriter
-	}
+	name: "app"
 };
 </script>
 
@@ -81,6 +76,7 @@ export default {
 	margin: 20px 5% 0;
 	height: auto;
 }
+
 #tw-title {
 	width: 60%;
 	margin-left: 20%;
@@ -90,10 +86,12 @@ export default {
 	margin-bottom: 20px;
 	border-bottom: 2px solid black;
 }
+
 #tw-title h1 {
 	margin: 0;
 	width: auto;
 }
+
 .tw-part {
 	padding: 15px;
 	width: 20%;
@@ -104,12 +102,15 @@ export default {
 	border: 2px solid black;
 	border-radius: 10px;
 }
+
 .comments {
 	color: green;
 }
+
 .keyword {
 	color: rebeccapurple;
 }
+
 .highlight {
 	color: #2a859b;
 }
@@ -119,6 +120,7 @@ export default {
 	width: 100%;
 	border: 2px solid darkblue;
 }
+
 #tw-api {
 	height: 200px;
 	width: 100%;
