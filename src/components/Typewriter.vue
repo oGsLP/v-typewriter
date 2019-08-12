@@ -64,6 +64,7 @@ export default {
 			el.innerHTML = "";
 			let progress = 0;
 			let rollSign = false;
+
 			let timer = setInterval(function() {
 				// 返回到innerHtml开头
 				if (progress === 0 && rollSign) {
